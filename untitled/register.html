@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Regjistrim - Tekniku Im</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(to bottom right, #f0f4ff, #d9e8ff);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .register-container {
+      background-color: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(6px);
+      padding: 2rem 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+      max-width: 500px;
+      width: 90%;
+      animation: fadeIn 0.6s ease;
+    }
+
+    .register-container h2 {
+      text-align: center;
+      color: #1d4ed8;
+      margin-bottom: 1.5rem;
+    }
+
+    .register-container input, select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border 0.3s ease;
+    }
+
+    .register-container input:focus, select:focus {
+      border: 1px solid #1d4ed8;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(29, 78, 216, 0.1);
+    }
+
+    .register-container button {
+      width: 100%;
+      margin-top: 1rem;
+      padding: 0.8rem;
+      background-color: #1d4ed8;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .register-container button:hover {
+      background-color: #2563eb;
+    }
+
+    .step {
+      display: none;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="register-container">
+  <h2>Regjistrohu në Tekniku Im</h2>
+
+  <!-- Step 1: Role Selection -->
+  <div class="step active" id="step1">
+    <label style="font-weight: 500; margin-bottom: 0.5rem;">Unë jam një:</label>
+    <button onclick="selectRole('technician')">Teknik</button>
+    <button onclick="selectRole('client')">Klient</button>
+  </div>
+
+  <!-- Step 2: Full Form -->
+  <form class="step" id="step2">
+    <input type="hidden" id="role" name="role" />
+
+    <input type="text" name="emri" placeholder="Emri" required />
+    <input type="text" name="mbiemri" placeholder="Mbiemri" required />
+    <input type="email" name="email" placeholder="Email" required />
+    <input type="tel" name="telefoni" placeholder="Telefoni" required />
+    <input type="text" name="qyteti" placeholder="Qyteti" required />
+    <input type="text" name="zona" placeholder="Zona e banimit" />
+
+    <select name="specializimi" id="specializimiField" style="display: none;">
+      <option value="">Zgjidh Specializimin</option>
+      <option value="Elektricist">Elektricist</option>
+      <option value="Hidraulik">Hidraulik</option>
+      <option value="Bojaxhi">Bojaxhi</option>
+      <option value="Gazinstalues">Gazinstalues</option>
+      <option value="Ngrohje">Punime Ngrohje</option>
+    </select>
+
+    <input type="password" name="fjalekalimi" placeholder="Fjalëkalimi" required />
+
+    <button type="submit">Krijo Llogarinë</button>
+  </form>
+</div>
+
+<script>
+  function selectRole(role) {
+    document.getElementById('role').value = role;
+    document.getElementById('step1').classList.remove('active');
+    document.getElementById('step2').classList.add('active');
+
+    if (role === 'technician') {
+      document.getElementById('specializimiField').style.display = 'block';
+    } else {
+      document.getElementById('specializimiField').style.display = 'none';
+    }
+  }
+
+  // 🔁 When the form is submitted
+  document.getElementById('step2').addEventListener('submit', function (e) {
+    e.preventDefault(); // prevent actual submission
+
+    const role = document.getElementById('role').value;
+
+    if (role === 'client') {
+      window.location.href = 'panel.html';
+    } else if (role === 'technician') {
+      window.location.href = 'dashboard-teknik.html';
+    }
+  });
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tekniku Im - Hyrje</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ✅ Full-width navbar -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <h1 class="logo">Tekniku Im</h1>
+    <div class="nav-buttons">
+      <button onclick="window.location.href='hyr.html'">Hyr</button>
+      <button onclick="window.location.href='register.html'" class="signup">Regjistrohu</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ✅ Canva-style split hero section -->
+<main class="landing-container">
+  <section class="hero split-hero">
+    <div class="hero-text">
+      <h2>Zgjidh Teknikun e Duhur me Vetëm Disa Klikime</h2>
+      <p>Gjej shpejt profesionistë për shtëpinë apo biznesin tënd. Elektricistë, hidraulikë, bojaxhinj dhe shumë të tjerë në Tiranë.</p>
+      <button onclick="window.location.href='preview.html'">Provo TANI</button>
+    </div>
+    <div class="slideshow">
+      <img src="qualities-of-successful-auto-mechanics-technicians.jpg" alt="Auto Technician">
+      <img src="Electrician-v2__FocusFillWzgwMCw1MDAsInkiLDE2XQ.jpg" alt="Electrician">
+      <img src="hidraulik-ne-tirane.jpeg" alt="Plumber">
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="feature">
+      <h3>Shërbime të Verifikuara</h3>
+      <p>Teknikë me përvojë dhe komente të vërteta nga klientët.</p>
+    </div>
+    <div class="feature">
+      <h3>Rezervim i Thjeshtë</h3>
+      <p>Planifiko një takim direkt nga platforma me disa klikime.</p>
+    </div>
+    <div class="feature">
+      <h3>Pagesa të Sigurta</h3>
+      <p>Paguaj direkt online dhe merr fatura të rregullta.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Tekniku Im. Të gjitha të drejtat e rezervuara.</p>
+  </footer>
+</main>
+
+<script>
+  const slides = document.querySelectorAll('.slideshow img');
+  let current = 0;
+
+  function showSlide(index) {
+    slides.forEach((img, i) => {
+      img.style.opacity = i === index ? '1' : '0';
+    });
+  }
+
+  function nextSlide() {
+    current = (current + 1) % slides.length;
+    showSlide(current);
+  }
+
+  showSlide(current);
+  setInterval(nextSlide, 4000);
+</script>
+</body>
+</html>

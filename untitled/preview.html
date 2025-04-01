@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Provo TANI - Demo</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom right, #f0f4ff, #d9e8ff);
+    }
+
+    .features {
+      max-width: 1300px;
+      margin: 4rem auto;
+      padding: 2rem;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      text-align: center;
+    }
+
+    .features h2 {
+      font-size: 2rem;
+      color: #1d4ed8;
+      margin-bottom: 3rem;
+    }
+
+    .technician-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .technician-card {
+      width: 280px;
+      background-color: #ffffff;
+      border-radius: 14px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      padding: 1.5rem;
+      text-align: center;
+      position: relative;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .technician-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .technician-card img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+
+    .technician-card h3 {
+      font-size: 1.1rem;
+      margin: 0.3rem 0;
+      color: #111827;
+    }
+
+    .technician-card p {
+      font-size: 0.9rem;
+      color: #4b5563;
+    }
+
+    .stars {
+      color: #fbbf24;
+      margin: 0.5rem 0;
+    }
+
+    .details {
+      text-align: left;
+      padding: 0.5rem 0;
+      font-size: 0.85rem;
+      color: #555;
+      display: none;
+      line-height: 1.4;
+      letter-spacing: 0.2px;
+    }
+
+    .technician-card.expanded .details {
+      display: block;
+    }
+
+    .details p {
+      margin: 0.3rem 0;
+    }
+
+    .more-button {
+      background-color: transparent;
+      border: none;
+      color: #2563eb;
+      font-size: 0.85rem;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+    .heading-centered {
+      text-align: center;
+      margin: 4rem 0 2rem;
+    }
+
+    .heading-centered h2 {
+      font-size: 2rem;
+      color: #1d4ed8;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <h1 class="logo">Tekniku Im</h1>
+    <div class="nav-buttons">
+      <button onclick="window.location.href='login.html'">Hyr</button>
+      <button onclick="window.location.href='signup.html'" class="signup">Regjistrohu</button>
+    </div>
+  </div>
+</nav>
+
+<main class="landing-container">
+
+  <!-- Standalone heading centered on full row -->
+  <div class="heading-centered">
+    <h2>Zgjidh Teknikun që të Përshtatet Ty</h2>
+  </div>
+
+  <section class="features">
+    <div class="technician-grid" id="technicianGrid"></div>
+  </section>
+</main>
+
+
+<footer>
+  <p>&copy; 2025 Tekniku Im. Të gjitha të drejtat e rezervuara.</p>
+</footer>
+
+<script>
+  const technicians = [
+    {
+      name: 'Altin Hoxha',
+      role: 'Elektricist - Tiranë',
+      img: 'Electrician-v2__FocusFillWzgwMCw1MDAsInkiLDE2XQ.jpg',
+      rating: '★★★★★',
+      info: `
+      <p><strong>Eksperiencë:</strong> 4 vite | 25+ punë të përfunduara</p>
+      <p><strong>Zona:</strong> Kombinat, Tiranë</p>
+      <p><strong>Certifikime:</strong> Sisteme elektrike 220/380V</p>
+      <p><strong>Disponibilitet:</strong> E hënë - E shtunë, 08:00-20:00</p>
+      <p><strong>Klientët thonë:</strong> “I saktë dhe shumë korrekt në afate”</p>
+      <p><strong>Tel:</strong> 068 473 1284</p>
+    `
+    },
+    {
+      name: 'Besart Kola',
+      role: 'Hidraulik - Tiranë',
+      img: 'hidraulik-ne-tirane.jpeg',
+      rating: '★★★★☆',
+      info: `
+      <p><strong>Eksperiencë:</strong> 3 vite | 40+ banjo të instaluara</p>
+      <p><strong>Zona:</strong> Don Bosko, Tiranë</p>
+      <p><strong>Trajnim:</strong> Sistemet e ujit të ngrohtë me presion</p>
+      <p><strong>Disponibilitet:</strong> 24/7 për raste emergjente</p>
+      <p><strong>Klientët thonë:</strong> “Zgjidh çdo problem pa vonesa”</p>
+      <p><strong>Tel:</strong> 069 223 9456</p>
+    `
+    },
+    {
+      name: 'Erisa Leka',
+      role: 'Bojaxhi - Kamëz',
+      img: 'image.png',
+      rating: '★★★☆☆',
+      info: `
+      <p><strong>Eksperiencë:</strong> 5 vite në dekorime murale moderne</p>
+      <p><strong>Zona:</strong> Valias, Kamëz</p>
+      <p><strong>Certifikime:</strong> Ngjyrosje dhe bojë ekologjike</p>
+      <p><strong>Orar:</strong> Ditë pune, 09:00-17:00</p>
+      <p><strong>Komente:</strong> “Kreative por e rezervuar në komunikim”</p>
+      <p><strong>Tel:</strong> 068 882 7745</p>
+    `
+    },
+    {
+      name: 'Jetmir Duka',
+      role: 'Elektricist - Durrës',
+      img: 'image.png',
+      rating: '★★★★☆',
+      info: `
+      <p><strong>Eksperiencë:</strong> 6 vite | rrjete zyrash</p>
+      <p><strong>Zona:</strong> Plazh, Durrës</p>
+      <p><strong>Certifikim:</strong> Siguri elektrike për ambiente të mëdha</p>
+      <p><strong>Orar:</strong> Fleksibël për projekte</p>
+      <p><strong>Komente:</strong> “I organizuar, kërkon njoftim paraprak”</p>
+      <p><strong>Tel:</strong> 069 335 4098</p>
+    `
+    },
+    {
+      name: 'Sara Muco',
+      role: 'Hidraulik - Tiranë',
+      img: 'image.png',
+      rating: '★★☆☆☆',
+      info: `
+      <p><strong>Eksperiencë:</strong> 7 vite | apartamente luksoze</p>
+      <p><strong>Zona:</strong> Ali Demi, Tiranë</p>
+      <p><strong>Specializim:</strong> Sisteme ngrohjeje me ujë</p>
+      <p><strong>Disponibilitet:</strong> E martë - E shtunë</p>
+      <p><strong>Komente:</strong> “Puna e mirë por menaxhim kohor i dobët”</p>
+      <p><strong>Tel:</strong> 067 901 2874</p>
+    `
+    },
+    {
+      name: 'Valbona Pema',
+      role: 'Bojaxhi - Elbasan',
+      img: 'image.png',
+      rating: '★★★★★',
+      info: `
+      <p><strong>Eksperiencë:</strong> 8 vite në shtëpi dhe biznese</p>
+      <p><strong>Zona:</strong> Qemal Stafa, Elbasan</p>
+      <p><strong>Kurse:</strong> Dekorime klasike dhe moderne</p>
+      <p><strong>Disponibilitet:</strong> Edhe fundjavë</p>
+      <p><strong>Komente:</strong> “Puna e saj flet vetë – fantastike”</p>
+      <p><strong>Tel:</strong> 069 777 3100</p>
+    `
+    },
+    {
+      name: 'Rigers Mema',
+      role: 'Specialist Ngrohje - Vlorë',
+      img: 'image.png',
+      rating: '★★★★☆',
+      info: `
+      <p><strong>Eksperiencë:</strong> 10+ vite | kaldaja dhe klimatizim</p>
+      <p><strong>Zona:</strong> Lungomare, Vlorë</p>
+      <p><strong>Trajnime:</strong> Itali – sistemet moderne</p>
+      <p><strong>Orar:</strong> Gjithë sezoni, më shumë në dimër</p>
+      <p><strong>Komente:</strong> “Efikas dhe shumë i qetë”</p>
+      <p><strong>Tel:</strong> 067 887 9034</p>
+    `
+    },
+    {
+      name: 'Alban Kryeziu',
+      role: 'Hidraulik - Tiranë',
+      img: 'image.png',
+      rating: '★★★★★',
+      info: `
+      <p><strong>Eksperiencë:</strong> 6 vite | riparime emergjente</p>
+      <p><strong>Zona:</strong> Yzberisht, Tiranë</p>
+      <p><strong>Certifikim:</strong> Impiante ndërtesash kolektive</p>
+      <p><strong>Disponibilitet:</strong> 24/7</p>
+      <p><strong>Komente:</strong> “Gjithmonë i gatshëm dhe besueshëm”</p>
+      <p><strong>Tel:</strong> 069 910 2122</p>
+    `
+    },
+    {
+      name: 'Lindita Kodra',
+      role: 'Gazinstalues - Tiranë',
+      img: 'image.png',
+      rating: '★★★★☆',
+      info: `
+      <p><strong>Eksperiencë:</strong> 5 vite me sisteme gazi</p>
+      <p><strong>Zona:</strong> Laprakë, Tiranë</p>
+      <p><strong>Certifikim:</strong> Instalime sigurie të lartë</p>
+      <p><strong>Orar:</strong> Me planifikim paraprak</p>
+      <p><strong>Komente:</strong> “Profesionale dhe e kujdesshme”</p>
+      <p><strong>Tel:</strong> 068 223 7145</p>
+    `
+    },
+    {
+      name: 'Drilon Cela',
+      role: 'Elektricist - Tiranë',
+      img: 'image.png',
+      rating: '★★★☆☆',
+      info: `
+      <p><strong>Eksperiencë:</strong> 2 vite | ndihmës teknik</p>
+      <p><strong>Zona:</strong> Astir, Tiranë</p>
+      <p><strong>Certifikim:</strong> Asnjë zyrtare, por praktik</p>
+      <p><strong>Komente:</strong> “I aftë për punë të thjeshta”</p>
+      <p><strong>Tel:</strong> 067 334 1289</p>
+    `
+    }
+  ];
+
+
+
+  const grid = document.getElementById('technicianGrid');
+  technicians.forEach(tech => {
+    const card = document.createElement('div');
+    card.className = 'technician-card';
+
+    card.innerHTML = `
+      <img src="${tech.img}" alt="${tech.name}" />
+      <h3>${tech.name}</h3>
+      <p>${tech.role}</p>
+      <div class="stars">${tech.rating}</div>
+      <div class="details">${tech.info}</div>
+      <button class="more-button" onclick="this.parentNode.classList.toggle('expanded')">
+        Më shumë...
+      </button>
+    `;
+
+    grid.appendChild(card);
+  });
+</script>
+
+</body>
+</html>

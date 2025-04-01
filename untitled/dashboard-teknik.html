@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8" />
+  <title>Paneli i Teknikut - Tekniku Im</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f1f5ff;
+    }
+
+    header {
+      background-color: #1d4ed8;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+
+    .dashboard {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    h2 {
+      color: #1d4ed8;
+    }
+
+    .request, .upcoming, .earnings {
+      background-color: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      margin-bottom: 1.5rem;
+    }
+
+    .request p, .upcoming p {
+      margin: 0.3rem 0;
+    }
+
+    .actions {
+      margin-top: 1rem;
+    }
+
+    .actions button {
+      margin-right: 10px;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .accept {
+      background-color: #22c55e;
+      color: white;
+    }
+
+    .decline {
+      background-color: #ef4444;
+      color: white;
+    }
+
+    #map {
+      height: 200px;
+      margin-top: 1rem;
+      border-radius: 8px;
+    }
+
+    .earnings {
+      background-color: #e0edff;
+      border-left: 5px solid #1d4ed8;
+    }
+
+    .upcoming {
+      background-color: #fef9c3;
+      border-left: 5px solid #f59e0b;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Mirësevini, Teknik!</h1>
+</header>
+
+<div class="dashboard">
+  <h2>Kërkesa të reja nga klientët</h2>
+
+  <div class="request">
+    <p><strong>Klienti:</strong> Arber D.</p>
+    <p><strong>Shërbimi:</strong> Riparim elektrik në Kombinat</p>
+    <p><strong>Ora:</strong> 10:00 - 12:00 | E Premte</p>
+    <div class="actions">
+      <button class="accept" onclick="alert('Kërkesa u pranua!')">Prano</button>
+      <button class="decline" onclick="alert('Kërkesa u refuzua.')">Refuzo</button>
+    </div>
+    <div id="map"></div>
+  </div>
+
+  <div class="upcoming">
+    <h3>Shërbime të ardhshme</h3>
+    <p>14:00 - 16:00 | E Premte | Riparim dritash në Yzberisht</p>
+    <p>09:00 - 10:30 | E Shtunë | Vendosje prizash në Laprakë</p>
+  </div>
+
+  <div class="earnings">
+    <p><strong>Fitimi juaj:</strong> 80% e pagesës totale për çdo shërbim.</p>
+    <p>Platforma “Tekniku Im” mban 20% për mirëmbajtje, marketing & sistemin e rezervimeve.</p>
+    <p><strong>Fitimet këtë javë:</strong> 12,400 Lekë</p>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  const map = L.map('map').setView([41.3275, 19.8189], 13); // Tirana example
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19
+  }).addTo(map);
+  L.marker([41.3275, 19.8189]).addTo(map)
+    .bindPopup('Lokacioni i klientit: Kombinat').openPopup();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Paneli - Tekniku Im</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom right, #f0f4ff, #d9e8ff);
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: #1d4ed8;
+      color: white;
+      height: 100vh;
+      padding: 2rem 1rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      animation: slideIn 0.5s ease forwards;
+    }
+
+    .sidebar h2 {
+      margin-bottom: 2rem;
+      font-size: 1.5rem;
+      text-align: center;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar li {
+      margin-bottom: 1.5rem;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: background 0.3s ease;
+    }
+
+    .sidebar li:hover {
+      background-color: #2563eb;
+    }
+
+    .content {
+      margin-left: 270px;
+      padding: 2rem;
+      flex-grow: 1;
+      animation: fadeIn 0.5s ease;
+      width: 100%;
+    }
+
+    .search-bar {
+      margin-bottom: 1.5rem;
+    }
+
+    .search-bar input {
+      padding: 0.6rem 1rem;
+      width: 100%;
+      max-width: 400px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .technician-card {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+      padding: 1.2rem;
+      margin-bottom: 1.5rem;
+      max-width: 600px;
+    }
+
+    .technician-card h3 {
+      margin: 0.3rem 0;
+      color: #1d4ed8;
+    }
+
+    .technician-card p {
+      margin: 0.2rem 0;
+      color: #444;
+      font-size: 0.95rem;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(-100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="sidebar">
+  <h2>Tekniku Im</h2>
+  <ul>
+    <li onclick="navigate('dashboard')">👥 Teknikët</li>
+    <li onclick="navigate('bookings')">📅 Rezervimet</li>
+    <li onclick="navigate('favorites')">❤️ Të preferuarat</li>
+    <li onclick="navigate('messages')">💬 Mesazhet</li>
+    <li onclick="navigate('settings')">⚙️ Cilësimet</li>
+    <li onclick="navigate('logout')">🚪 Dil</li>
+  </ul>
+</div>
+
+<div class="content" id="main-content">
+  <!-- initial content will be replaced by JS -->
+</div>
+
+<script>
+  const technicians = [
+    {
+      name: 'Altin Hoxha',
+      role: 'Elektricist - Tiranë',
+      info: `
+        <p><strong>Eksperiencë:</strong> 4 vite | 25+ punë të përfunduara</p>
+        <p><strong>Zona:</strong> Kombinat, Tiranë</p>
+        <p><strong>Certifikime:</strong> Sisteme elektrike 220/380V</p>
+        <p><strong>Disponibilitet:</strong> E hënë - E shtunë, 08:00-20:00</p>
+        <p><strong>Klientët thonë:</strong> “I saktë dhe shumë korrekt në afate”</p>
+        <p><strong>Tel:</strong> 068 473 1284</p>
+      `
+    },
+    {
+      name: 'Besart Kola',
+      role: 'Hidraulik - Tiranë',
+      info: `
+        <p><strong>Eksperiencë:</strong> 3 vite | 40+ banjo të instaluara</p>
+        <p><strong>Zona:</strong> Don Bosko, Tiranë</p>
+        <p><strong>Trajnim:</strong> Sistemet e ujit të ngrohtë me presion</p>
+        <p><strong>Disponibilitet:</strong> 24/7 për raste emergjente</p>
+        <p><strong>Klientët thonë:</strong> “Zgjidh çdo problem pa vonesa”</p>
+        <p><strong>Tel:</strong> 069 223 9456</p>
+      `
+    },
+    {
+      name: 'Sara Muco',
+      role: 'Hidraulik - Tiranë',
+      info: `
+        <p><strong>Eksperiencë:</strong> 7 vite | apartamente luksoze</p>
+        <p><strong>Zona:</strong> Ali Demi, Tiranë</p>
+        <p><strong>Specializim:</strong> Sisteme ngrohjeje me ujë</p>
+        <p><strong>Disponibilitet:</strong> E martë - E shtunë</p>
+        <p><strong>Komente:</strong> “Puna e mirë por menaxhim kohor i dobët”</p>
+        <p><strong>Tel:</strong> 067 901 2874</p>
+      `
+    }
+  ];
+
+  function navigate(section) {
+    const content = document.getElementById('main-content');
+    if (section === 'logout') {
+      window.location.href = 'index.html';
+    } else if (section === 'dashboard') {
+      renderTechnicians(technicians);
+    } else {
+      content.innerHTML = `<h2>${section}</h2><p>Kjo pjesë është ende në zhvillim.</p>`;
+    }
+  }
+
+  function renderTechnicians(data) {
+    const content = document.getElementById('main-content');
+    content.innerHTML = `
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Kërko sipas emrit, qytetit, orarit...">
+      </div>
+      <div id="technicianList"></div>
+    `;
+
+    document.getElementById('searchInput').addEventListener('input', filterTechnicians);
+
+    const list = document.getElementById('technicianList');
+    list.innerHTML = '';
+    data.forEach(tech => {
+      const card = document.createElement('div');
+      card.className = 'technician-card';
+      card.innerHTML = `
+        <h3>${tech.name}</h3>
+        <p><strong>${tech.role}</strong></p>
+        ${tech.info}
+      `;
+      list.appendChild(card);
+    });
+  }
+
+  function filterTechnicians() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const filtered = technicians.filter(t =>
+      t.name.toLowerCase().includes(query) ||
+      t.role.toLowerCase().includes(query) ||
+      t.info.toLowerCase().includes(query)
+    );
+    renderTechnicians(filtered);
+  }
+
+  // Load on first visit
+  renderTechnicians(technicians);
+</script>
+
+</body>
+</html>
